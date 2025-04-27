@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/auth/login/login",
+    "pages/auth/register/register",
+    "pages/auth/forgetPassword/forgetPassword",
+    "pages/users/profile/profile",
+    "pages/users/editProfile/editProfile",
+    "pages/tasks/list/list",
+    "pages/tasks/detail/detail",
+    "pages/tasks/create/create",
+    "pages/applications/apply/apply",
+    "pages/applications/status/status",
+    "pages/payments/history/history",
+    "pages/payments/payment/payment"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#007AFF",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/tasks/list/list",
+        "text": "任务"
+      },
+      {
+        "pagePath": "pages/applications/status/status",
+        "text": "申请"
+      },
+      {
+        "pagePath": "pages/users/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

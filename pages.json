@@ -1,0 +1,107 @@
+{
+	"pages": [
+		{
+			"path": "pages/auth/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/auth/register/register",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		},
+		{
+			"path": "pages/auth/forgetPassword/forgetPassword",
+			"style": {
+				"navigationBarTitleText": "忘记密码"
+			}
+		},
+		{
+			"path": "pages/users/profile/profile",
+			"style": {
+				"navigationBarTitleText": "个人资料"
+			}
+		},
+		{
+			"path": "pages/users/editProfile/editProfile",
+			"style": {
+				"navigationBarTitleText": "编辑资料"
+			}
+		},
+		{
+			"path": "pages/tasks/list/list",
+			"style": {
+				"navigationBarTitleText": "任务列表"
+			}
+		},
+		{
+			"path": "pages/tasks/detail/detail",
+			"style": {
+				"navigationBarTitleText": "任务详情"
+			}
+		},
+		{
+			"path": "pages/tasks/create/create",
+			"style": {
+				"navigationBarTitleText": "创建任务"
+			}
+		},
+		{
+			"path": "pages/applications/apply/apply",
+			"style": {
+				"navigationBarTitleText": "申请任务"
+			}
+		},
+		{
+			"path": "pages/applications/status/status",
+			"style": {
+				"navigationBarTitleText": "申请状态"
+			}
+		},
+		{
+			"path": "pages/payments/history/history",
+			"style": {
+				"navigationBarTitleText": "支付历史"
+			}
+		},
+		{
+			"path": "pages/payments/payment/payment",
+			"style": {
+				"navigationBarTitleText": "支付"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"bounce": "none",
+			"animationType": "fade-in-out",
+			"animationDuration": 250
+		}
+	},
+	"tabBar": {
+		"color": "#999",
+		"selectedColor": "#007AFF",
+		"backgroundColor": "#FFFFFF",
+		"borderStyle": "black",
+		"list": [{
+				"pagePath": "pages/tasks/list/list",
+				"text": "任务"
+			},
+			{
+				"pagePath": "pages/applications/status/status",
+				"text": "申请"
+			},
+			{
+				"pagePath": "pages/users/profile/profile",
+				"text": "我的"
+			}
+		]
+	},
+	"uniIdRouter": {}
+}

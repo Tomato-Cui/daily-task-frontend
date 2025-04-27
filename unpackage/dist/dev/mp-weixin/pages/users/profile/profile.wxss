@@ -1,0 +1,153 @@
+
+.profile-container {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background-color: #f9fafb;
+}
+
+/* 用户资料卡片样式 */
+.user-card {
+	background-color: #ffffff;
+	padding: 30rpx;
+	box-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.05);
+	margin-bottom: 20rpx;
+}
+.user-info {
+	display: flex;
+	align-items: center;
+}
+.avatar {
+	width: 120rpx;
+	height: 120rpx;
+	border-radius: 50%;
+}
+.user-details {
+	margin-left: 30rpx;
+}
+.user-name {
+	font-size: 36rpx;
+	font-weight: bold;
+}
+.user-phone {
+	font-size: 28rpx;
+	color: #6b7280;
+	margin-top: 10rpx;
+}
+
+/* 角色切换样式 */
+.role-switch {
+	margin-top: 30rpx;
+	background-color: #f3f4f6;
+	padding: 20rpx;
+	border-radius: 8rpx;
+}
+.role-label {
+	font-size: 28rpx;
+	margin-bottom: 20rpx;
+	color: #4b5563;
+}
+.role-buttons {
+	display: flex;
+}
+.role-button {
+	flex: 1;
+	padding: 15rpx 0;
+	text-align: center;
+	border-radius: 8rpx;
+	font-size: 28rpx;
+}
+.role-spacer {
+	width: 20rpx;
+}
+.role-active {
+	background-color: #3b82f6;
+	color: #ffffff;
+}
+.role-inactive {
+	background-color: #e5e7eb;
+	color: #4b5563;
+}
+
+/* 功能菜单样式 */
+.feature-menu {
+	background-color: #ffffff;
+	box-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.05);
+}
+.feature-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1rem;
+	padding: 30rpx;
+}
+.feature-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.feature-icon {
+	width: 80rpx;
+	height: 80rpx;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 10rpx;
+}
+.feature-edit {
+	background-color: #dbeafe;
+}
+.feature-task {
+	background-color: #d1fae5;
+}
+.feature-publish {
+	background-color: #ffedd5;
+}
+.feature-apply {
+	background-color: #f3e8ff;
+}
+.feature-icon-text {
+	font-size: 40rpx;
+}
+.edit-icon {
+	color: #3b82f6;
+}
+.task-icon {
+	color: #10b981;
+}
+.publish-icon {
+	color: #f97316;
+}
+.apply-icon {
+	color: #8b5cf6;
+}
+.feature-text {
+	font-size: 24rpx;
+}
+
+/* 列表菜单样式 */
+.list-menu {
+	background-color: #ffffff;
+	margin-top: 20rpx;
+	box-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.05);
+}
+.menu-item {
+	padding: 30rpx;
+	border-bottom: 1rpx solid #f3f4f6;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.menu-text {
+	font-size: 30rpx;
+}
+.menu-arrow {
+	color: #9ca3af;
+}
+.logout-item {
+	border-bottom: none;
+}
+.logout-text {
+	font-size: 30rpx;
+	color: #ef4444;
+}
