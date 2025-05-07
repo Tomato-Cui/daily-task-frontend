@@ -91,7 +91,7 @@
 		"borderStyle": "black",
 		"list": [{
 				"pagePath": "pages/tasks/list/list",
-				"text": "任务"
+				"text": "任务1"
 			},
 			{
 				"pagePath": "pages/applications/status/status",

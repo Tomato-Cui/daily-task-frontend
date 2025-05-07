@@ -12,7 +12,7 @@ const _sfc_main = {
     const tasks = common_vendor.ref([]);
     const loading = common_vendor.ref(false);
     const pageNum = common_vendor.ref(1);
-    common_vendor.ref(10);
+    const pageSize = common_vendor.ref(10);
     common_vendor.watch(userRole, () => {
       tasks.value = [];
       pageNum.value = 1;
@@ -21,115 +21,33 @@ const _sfc_main = {
     const fetchTasks = async () => {
       loading.value = true;
       try {
-        setTimeout(() => {
-          let newTasks = [];
-          if (userRole.value === "worker") {
-            newTasks = [
-              {
-                id: 1,
-                title: "设计一个企业Logo",
-                description: "需要设计一个现代化的企业Logo，要求简洁、大方，能够展现企业的专业形象。",
-                reward: 500,
-                deadline: /* @__PURE__ */ new Date("2023-12-30"),
-                status: "open",
-                // open, in_progress, completed, closed
-                publisher: {
-                  id: 1,
-                  name: "张企业",
-                  avatar: "http://iph.href.lu/50x50"
-                }
-              },
-              {
-                id: 2,
-                title: "开发一个小程序页面",
-                description: "需要开发一个WeChat小程序的商品详情页面，要求有图片轮播、商品信息展示、评价列表等功能。",
-                reward: 800,
-                deadline: /* @__PURE__ */ new Date("2023-12-25"),
-                status: "open",
-                publisher: {
-                  id: 2,
-                  name: "李科技",
-                  avatar: "http://iph.href.lu/50x50"
-                }
-              },
-              {
-                id: 3,
-                title: "撰写产品介绍文案",
-                description: "为一款新上市的智能手表撰写产品介绍文案，要求突出产品特点和优势，吸引目标用户。",
-                reward: 300,
-                deadline: /* @__PURE__ */ new Date("2023-12-20"),
-                status: "in_progress",
-                publisher: {
-                  id: 3,
-                  name: "王营销",
-                  avatar: "http://iph.href.lu/50x50"
-                }
-              },
-              {
-                id: 4,
-                title: "拍摄产品宣传视频",
-                description: "为一款新上市的厨房用品拍摄宣传视频，视频时长3-5分钟，展示产品的使用过程和效果。",
-                reward: 1200,
-                deadline: /* @__PURE__ */ new Date("2023-12-15"),
-                status: "open",
-                publisher: {
-                  id: 4,
-                  name: "赵影像",
-                  avatar: "http://iph.href.lu/50x50"
-                }
-              }
-            ];
-          } else {
-            newTasks = [
-              {
-                id: 101,
-                title: "招聘临时搬运工",
-                description: "需要5名临时工帮忙搬运办公家具，工作地点在市中心，工作时间约4小时。",
-                reward: 400,
-                deadline: /* @__PURE__ */ new Date("2023-12-28"),
-                status: "open",
-                publisher: {
-                  id: 5,
-                  name: "我的公司",
-                  avatar: "https://randomuser.me/api/portraits/men/5.jpg"
-                },
-                applicants: 3
-              },
-              {
-                id: 102,
-                title: "活动现场发传单",
-                description: "周末商场促销活动，需要10名工作人员发放宣传单页，每人每天工作8小时。",
-                reward: 300,
-                deadline: /* @__PURE__ */ new Date("2023-12-22"),
-                status: "in_progress",
-                publisher: {
-                  id: 5,
-                  name: "我的公司",
-                  avatar: "https://randomuser.me/api/portraits/men/5.jpg"
-                },
-                applicants: 15
-              },
-              {
-                id: 103,
-                title: "线上客服",
-                description: "需要2名兼职在线客服，负责回答用户咨询，工作时间灵活，有经验者优先。",
-                reward: 50,
-                deadline: /* @__PURE__ */ new Date("2023-12-18"),
-                status: "completed",
-                publisher: {
-                  id: 5,
-                  name: "我的公司",
-                  avatar: "https://randomuser.me/api/portraits/men/5.jpg"
-                },
-                applicants: 8
-              }
-            ];
+        const response = await common_vendor.index.request({
+          url: "http://localhost:3000/tasks",
+          method: "GET",
+          data: {
+            page: pageNum.value,
+            pageSize: pageSize.value,
+            role: userRole.value,
+            tab: currentTab.value,
+            searchKey: searchKey.value
           }
+        });
+        if (response.statusCode === 200) {
+          const newTasks = response.data;
           tasks.value = pageNum.value === 1 ? newTasks : [...tasks.value, ...newTasks];
-          loading.value = false;
-        }, 1e3);
+        } else {
+          common_vendor.index.showToast({
+            title: "获取任务列表失败",
+            icon: "none"
+          });
+        }
       } catch (error) {
-        common_vendor.index.__f__("error", "at pages/tasks/list/list.vue:221", "获取任务列表失败:", error);
+        common_vendor.index.__f__("error", "at pages/tasks/list/list.vue:132", "获取任务列表失败:", error);
+        common_vendor.index.showToast({
+          title: "网络请求失败",
+          icon: "none"
+        });
+      } finally {
         loading.value = false;
       }
     };
