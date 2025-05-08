@@ -26,7 +26,7 @@ const handleLogin = () => {
 			if (res.code) {
 				// 发送 res.code 到后台换取 openid、session_key 等信息
 				wx.request({
-					url: 'https://your-server.com/api/login',
+					url: 'http://h65cf8b6.natappfree.cc/auth/wechat/login',
 					method: 'POST',
 					data: {
 						code: res.code,

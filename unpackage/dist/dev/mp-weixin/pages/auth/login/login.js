@@ -11,7 +11,7 @@ const _sfc_main = {
         success: (res) => {
           if (res.code) {
             common_vendor.wx$1.request({
-              url: "https://your-server.com/api/login",
+              url: "http://h65cf8b6.natappfree.cc/auth/wechat/login",
               method: "POST",
               data: {
                 code: res.code

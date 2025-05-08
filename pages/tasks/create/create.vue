@@ -2,114 +2,70 @@
 	<view class="create-container">
 		<view class="create-card">
 			<view class="page-title">发布任务</view>
-			
+
 			<!-- 任务标题 -->
 			<view class="form-item">
 				<text class="form-label">任务标题</text>
-				<input 
-					class="form-input" 
-					type="text" 
-					v-model="taskForm.title" 
-					placeholder="请输入任务标题" 
-				/>
+				<input class="form-input" type="text" v-model="taskForm.title" placeholder="请输入任务标题" />
 			</view>
-			
+
 			<!-- 任务类型 -->
 			<view class="form-item">
 				<text class="form-label">任务类型</text>
-				<picker 
-					class="form-picker" 
-					mode="selector" 
-					:range="taskTypes" 
-					@change="handleTaskTypeChange"
-				>
+				<picker class="form-picker" mode="selector" :range="taskTypes" @change="handleTaskTypeChange">
 					<view class="picker-display">
 						<text class="picker-text">{{ taskTypes[taskForm.typeIndex] }}</text>
 						<text class="picker-arrow">▼</text>
 					</view>
 				</picker>
 			</view>
-			
+
 			<!-- 任务描述 -->
 			<view class="form-item">
 				<text class="form-label">任务描述</text>
-				<textarea 
-					class="form-textarea" 
-					v-model="taskForm.description" 
-					placeholder="请详细描述任务要求和内容" 
-				/>
+				<textarea class="form-textarea" v-model="taskForm.description" placeholder="请详细描述任务要求和内容" />
 			</view>
-			
+
 			<!-- 任务报酬 -->
 			<view class="form-item">
 				<text class="form-label">任务报酬 (元)</text>
-				<input 
-					class="form-input" 
-					type="digit" 
-					v-model="taskForm.reward" 
-					placeholder="请输入任务报酬" 
-				/>
+				<input class="form-input" type="digit" v-model="taskForm.reward" placeholder="请输入任务报酬" />
 			</view>
-			
+
 			<!-- 任务人数 -->
 			<view class="form-item">
 				<text class="form-label">招募人数</text>
-				<input 
-					class="form-input" 
-					type="number" 
-					v-model="taskForm.peopleCount" 
-					placeholder="请输入招募人数" 
-				/>
+				<input class="form-input" type="number" v-model="taskForm.peopleCount" placeholder="请输入招募人数" />
 			</view>
-			
+
 			<!-- 截止日期 -->
 			<view class="form-item">
 				<text class="form-label">截止日期</text>
-				<picker 
-					class="form-picker" 
-					mode="date" 
-					:value="taskForm.deadline" 
-					start="2023-01-01" 
-					end="2024-12-31" 
-					@change="handleDateChange"
-				>
+				<picker class="form-picker" mode="date" :value="taskForm.deadline" start="2023-01-01" end="2024-12-31"
+					@change="handleDateChange">
 					<view class="picker-display">
 						<text class="picker-text">{{ taskForm.deadline || '请选择截止日期' }}</text>
 						<text class="picker-arrow">▼</text>
 					</view>
 				</picker>
 			</view>
-			
+
 			<!-- 联系方式 -->
 			<view class="form-item">
 				<text class="form-label">联系电话</text>
-				<input 
-					class="form-input" 
-					type="number" 
-					v-model="taskForm.contactPhone" 
-					placeholder="请输入联系电话" 
-				/>
+				<input class="form-input" type="number" v-model="taskForm.contactPhone" placeholder="请输入联系电话" />
 			</view>
-			
+
 			<!-- 工作地点 -->
 			<view class="form-item">
 				<text class="form-label">工作地点</text>
-				<input 
-					class="form-input" 
-					type="text" 
-					v-model="taskForm.location" 
-					placeholder="请输入工作地点" 
-				/>
+				<input class="form-input" type="text" v-model="taskForm.location" placeholder="请输入工作地点" />
 			</view>
 		</view>
-		
+
 		<!-- 提交按钮 -->
-		<button 
-			class="submit-button"
-			:disabled="submitDisabled"
-			:class="{'button-disabled': submitDisabled}"
-			@tap="submitTask"
-		>发布任务</button>
+		<button class="submit-button" :disabled="submitDisabled" :class="{ 'button-disabled': submitDisabled }"
+			@tap="submitTask">发布任务</button>
 	</view>
 </template>
 
@@ -136,11 +92,11 @@ const taskForm = ref({
 
 // 检查表单是否可提交
 const submitDisabled = computed(() => {
-	return !taskForm.value.title 
-		|| !taskForm.value.description 
-		|| !taskForm.value.reward 
-		|| !taskForm.value.peopleCount 
-		|| !taskForm.value.deadline 
+	return !taskForm.value.title
+		|| !taskForm.value.description
+		|| !taskForm.value.reward
+		|| !taskForm.value.peopleCount
+		|| !taskForm.value.deadline
 		|| !taskForm.value.contactPhone;
 });
 
@@ -154,7 +110,7 @@ const handleDateChange = (e) => {
 	taskForm.value.deadline = e.detail.value;
 };
 
-// 提交任务
+// 发布任务
 const submitTask = () => {
 	if (submitDisabled.value) {
 		uni.showToast({
@@ -163,43 +119,61 @@ const submitTask = () => {
 		});
 		return;
 	}
-	
-	// 模拟提交
+
+	// 这里是你要提交的任务数据，请根据实际字段替换
+	const taskData = {
+		title: taskForm.value.title,
+		description: taskForm.value.description,
+		price: Number(this.form.price),
+		peopleCount: Number(this.form.peopleCount),
+
+		deadline: taskForm.value.deadline,
+		contactPhone: taskForm.value.contactPhone,
+		location: taskForm.value.location,
+
+		// 添加其他字段...
+	};
+
 	uni.showLoading({
 		title: '提交中...'
 	});
-	
-	setTimeout(() => {
-		uni.hideLoading();
-		
-		uni.showToast({
-			title: '发布成功',
-			icon: 'success'
-		});
-		
-		// 跳转到任务列表页
-		setTimeout(() => {
-			uni.switchTab({
-				url: '/pages/tasks/list/list'
-			});
-		}, 1500);
-	}, 2000);
-};
 
-// 检查是否为雇佣者
-onMounted(() => {
-	const cachedUserRole = uni.getStorageSync('userRole');
-	if (cachedUserRole !== 'employer') {
-		uni.showModal({
-			title: '提示',
-			content: '只有雇佣者才能发布任务',
-			showCancel: false,
-			success: () => {
-				uni.navigateBack();
+	uni.request({
+		url: 'http://localhost:3000/tasks',
+		method: 'POST',
+		header: {
+			'Content-Type': 'application/json'
+		},
+		data: taskData,
+		success(res) {
+			uni.hideLoading();
+			if (res.statusCode === 200 || res.statusCode === 201) {
+				uni.showToast({
+					title: '发布成功',
+					icon: 'success'
+				});
+				setTimeout(() => {
+					uni.switchTab({
+						url: '/pages/tasks/list/list'
+					});
+				}, 1500);
+			} else {
+				uni.showToast({
+					title: '发布失败',
+					icon: 'none'
+				});
 			}
-		});
-	}
-});
+		},
+		fail(err) {
+			uni.hideLoading();
+			uni.showToast({
+				title: '网络错误，请重试',
+				icon: 'none'
+			});
+			console.error('任务发布失败:', err);
+		}
+	});
+};
 </script>
 
 <style>

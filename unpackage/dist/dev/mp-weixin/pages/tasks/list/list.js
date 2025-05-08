@@ -33,7 +33,14 @@ const _sfc_main = {
           }
         });
         if (response.statusCode === 200) {
-          const newTasks = response.data;
+          const newTasks = response.data.map((task) => ({
+            ...task,
+            publisher: task.publisher || {
+              id: 0,
+              name: "未知用户",
+              avatar: "/static/default-avatar.png"
+            }
+          }));
           tasks.value = pageNum.value === 1 ? newTasks : [...tasks.value, ...newTasks];
         } else {
           common_vendor.index.showToast({
@@ -42,7 +49,7 @@ const _sfc_main = {
           });
         }
       } catch (error) {
-        common_vendor.index.__f__("error", "at pages/tasks/list/list.vue:132", "获取任务列表失败:", error);
+        common_vendor.index.__f__("error", "at pages/tasks/list/list.vue:141", "获取任务列表失败:", error);
         common_vendor.index.showToast({
           title: "网络请求失败",
           icon: "none"
@@ -113,7 +120,7 @@ const _sfc_main = {
           return "未知";
       }
     };
-    common_vendor.onMounted(() => {
+    common_vendor.onLoad(() => {
       const cachedUserRole = common_vendor.index.getStorageSync("userRole");
       if (cachedUserRole) {
         userRole.value = cachedUserRole;
@@ -142,6 +149,7 @@ const _sfc_main = {
         h: common_assets._imports_0$1
       } : {
         i: common_vendor.f(tasks.value, (task, index, i0) => {
+          var _a, _b;
           return common_vendor.e({
             a: common_vendor.t(task.title),
             b: common_vendor.t(getStatusText(task.status)),
@@ -149,8 +157,8 @@ const _sfc_main = {
             d: common_vendor.t(task.description),
             e: common_vendor.t(task.reward),
             f: common_vendor.t(formatDate(task.deadline)),
-            g: task.publisher.avatar,
-            h: common_vendor.t(task.publisher.name),
+            g: ((_a = task.publisher) == null ? void 0 : _a.avatar) || "/static/default-avatar.png",
+            h: common_vendor.t(((_b = task.publisher) == null ? void 0 : _b.name) || "未知用户"),
             i: common_vendor.o(($event) => goToDetail(task.id), task.id)
           }, userRole.value === "worker" ? {
             j: common_vendor.o(($event) => applyTask(task.id, $event), task.id)

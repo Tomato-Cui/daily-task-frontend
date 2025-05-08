@@ -54,8 +54,8 @@
 						<!-- 发布者信息 -->
 						<view class="card-bottom">
 							<view class="publisher-info">
-								<image :src="task.publisher.avatar" class="publisher-avatar"></image>
-								<text class="publisher-name">{{ task.publisher.name }}</text>
+								<image :src="task.publisher?.avatar || '/static/default-avatar.png'" class="publisher-avatar"></image>
+								<text class="publisher-name">{{ task.publisher?.name || '未知用户' }}</text>
 							</view>
 						</view>
 					</view>
@@ -78,6 +78,7 @@
 
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue';
+import { onLoad } from '@dcloudio/uni-app';
 
 // 搜索关键字
 const searchKey = ref('');
@@ -120,7 +121,15 @@ const fetchTasks = async () => {
 		});
 
 		if (response.statusCode === 200) {
-			const newTasks = response.data;
+			// 确保返回的数据格式正确
+			const newTasks = response.data.map(task => ({
+				...task,
+				publisher: task.publisher || {
+					id: 0,
+					name: '未知用户',
+					avatar: '/static/default-avatar.png'
+				}
+			}));
 			tasks.value = pageNum.value === 1 ? newTasks : [...tasks.value, ...newTasks];
 		} else {
 			uni.showToast({
@@ -219,13 +228,12 @@ const getStatusText = (status) => {
 };
 
 // 页面加载时获取任务列表
-onMounted(() => {
+onLoad(() => {
 	// 从缓存中获取用户角色
 	const cachedUserRole = uni.getStorageSync('userRole');
 	if (cachedUserRole) {
 		userRole.value = cachedUserRole;
 	}
-
 	fetchTasks();
 });
 </script>

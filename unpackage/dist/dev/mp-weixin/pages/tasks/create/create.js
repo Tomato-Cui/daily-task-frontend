@@ -32,35 +32,55 @@ const _sfc_main = {
         });
         return;
       }
+      const taskData = {
+        title: taskForm.value.title,
+        description: taskForm.value.description,
+        price: Number(this.form.price),
+        peopleCount: Number(this.form.peopleCount),
+        deadline: taskForm.value.deadline,
+        contactPhone: taskForm.value.contactPhone,
+        location: taskForm.value.location
+        // 添加其他字段...
+      };
       common_vendor.index.showLoading({
         title: "提交中..."
       });
-      setTimeout(() => {
-        common_vendor.index.hideLoading();
-        common_vendor.index.showToast({
-          title: "发布成功",
-          icon: "success"
-        });
-        setTimeout(() => {
-          common_vendor.index.switchTab({
-            url: "/pages/tasks/list/list"
-          });
-        }, 1500);
-      }, 2e3);
-    };
-    common_vendor.onMounted(() => {
-      const cachedUserRole = common_vendor.index.getStorageSync("userRole");
-      if (cachedUserRole !== "employer") {
-        common_vendor.index.showModal({
-          title: "提示",
-          content: "只有雇佣者才能发布任务",
-          showCancel: false,
-          success: () => {
-            common_vendor.index.navigateBack();
+      common_vendor.index.request({
+        url: "http://localhost:3000/tasks",
+        method: "POST",
+        header: {
+          "Content-Type": "application/json"
+        },
+        data: taskData,
+        success(res) {
+          common_vendor.index.hideLoading();
+          if (res.statusCode === 200 || res.statusCode === 201) {
+            common_vendor.index.showToast({
+              title: "发布成功",
+              icon: "success"
+            });
+            setTimeout(() => {
+              common_vendor.index.switchTab({
+                url: "/pages/tasks/list/list"
+              });
+            }, 1500);
+          } else {
+            common_vendor.index.showToast({
+              title: "发布失败",
+              icon: "none"
+            });
           }
-        });
-      }
-    });
+        },
+        fail(err) {
+          common_vendor.index.hideLoading();
+          common_vendor.index.showToast({
+            title: "网络错误，请重试",
+            icon: "none"
+          });
+          common_vendor.index.__f__("error", "at pages/tasks/create/create.vue:173", "任务发布失败:", err);
+        }
+      });
+    };
     return (_ctx, _cache) => {
       return {
         a: taskForm.value.title,
